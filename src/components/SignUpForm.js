@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+import Axios from 'axios';
 import { Card, CardContent, Grid, TextField, Button, Typography, } from '@mui/material';
 import { deepPurple, indigo, } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -7,7 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 const theme = createTheme({
     palette: {
-      mode: 'dark',
+      mode: 'light',
       primary: {
         main: indigo[400],
         dark: indigo[600]
@@ -19,21 +21,52 @@ const theme = createTheme({
     }
   });
 
-
-
 export default function SignUpForm() {
+
+    const url = "";
+    const [data, setData] = useState({
+        first_name: "",
+        last_name: "",
+        email: "",
+        company: "",
+        password: "",
+    });
+
+    const handleChange = (e) => {
+        const newData={...data}
+        newData[e.target.name] = e.target.value;
+        setData(newData);
+        console.log(newData);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        Axios.post(url,{
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            company: data.company,
+            password: data.password,
+        })
+        .then(res=>{
+            console.log(res.data);
+        })
+    }
+
   return (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <Typography gutterTop variant="h3" align="center" my={5}>Help Desk Wizard</Typography>
+    <Typography variant="h3" align="center" my={5}>Help Desk Wizard</Typography>
     <Card sx={{ maxWidth: 760, mx: 'auto' }} variant="outlined">
         <CardContent>
             <Typography mb={2} variant="h5" align="center">Create an Account</Typography>
 
-            <form>
+            <form onSubmit={(e)=>handleSubmit(e)}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField 
+                        onChange={(e)=>handleChange(e)}
+                        value={data.first_name}
                         required fullWidth
                         name="first_name"
                         label="First Name"
@@ -87,7 +120,7 @@ export default function SignUpForm() {
                         variant="outlined"
                     />
                 </Grid>
-                <Grid item xs={12} spacing={3}>
+                <Grid item xs={12}>
                     <Button type="submit" variant="contained" color="primary" fullWidth>Sign Up</Button>
                 </Grid>
             </Grid>
