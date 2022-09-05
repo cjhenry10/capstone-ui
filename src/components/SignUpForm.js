@@ -22,14 +22,22 @@ const theme = createTheme({
   });
 
 export default function SignUpForm() {
-
-    const url = "";
+    // Axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+    const url = "http://localhost:8000/api/register/";
+    // const config = { 
+    //     headers: {
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Content-Type": "application/json",
+    //     "Cookie": "csrftoken=63gZUvpLj0nbjO8lY22YtqGjC3gm5syY9Xy8pbNpKzb6QnVPhmKYKOyL1OZc08TH",
+    //     } 
+    // };
     const [data, setData] = useState({
-        first_name: "",
-        last_name: "",
+        firstName: "",
+        lastName: "",
         email: "",
         company: "",
         password: "",
+        confirmPassword: "",
     });
 
     const handleChange = (e) => {
@@ -41,16 +49,36 @@ export default function SignUpForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Axios.post(url,{
-            first_name: data.first_name,
-            last_name: data.last_name,
-            email: data.email,
-            company: data.company,
-            password: data.password,
-        })
-        .then(res=>{
-            console.log(res.data);
-        })
+        // Axios.post(url,{
+        //     "name": data.firstName + " " + data.lastName,
+        //     "email": data.email,
+        //     "password": data.password,
+        // })
+        // .then(res=>{
+        //     console.log(res.data);
+        // })
+        const rawData = JSON.stringify({
+            "name": data.firstName + " " + data.lastName,
+            "email": data.email,
+            "password": data.password,
+        });
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        // myHeaders.append("Cookie", "csrftoken=63gZUvpLj0nbjO8lY22YtqGjC3gm5syY9Xy8pbNpKzb6QnVPhmKYKOyL1OZc08TH");
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: rawData,
+            redirect: 'follow'
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error))
+
     }
 
   return (
@@ -66,9 +94,9 @@ export default function SignUpForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField 
                         onChange={(e)=>handleChange(e)}
-                        value={data.first_name}
+                        value={data.firstName}
                         required fullWidth
-                        name="first_name"
+                        name="firstName"
                         label="First Name"
                         placeholder="Enter first name"
                         variant="outlined"
@@ -76,8 +104,10 @@ export default function SignUpForm() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField 
+                        onChange={(e)=>handleChange(e)}
+                        value={data.lastName}
                         required fullWidth
-                        name="last_name"
+                        name="lastName"
                         label="Last Name"
                         placeholder="Enter last name"
                         variant="outlined"
@@ -86,6 +116,8 @@ export default function SignUpForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField 
                         required fullWidth
+                        onChange={(e)=>handleChange(e)}
+                        value={data.email}
                         name="email"
                         type="email"
                         label="Email"
@@ -105,6 +137,8 @@ export default function SignUpForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField 
                         required fullWidth
+                        onChange={(e)=>handleChange(e)}
+                        value={data.password}
                         name="password"
                         type="password"
                         label="Password"
@@ -114,7 +148,9 @@ export default function SignUpForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField 
                         required fullWidth
-                        name="password"
+                        onChange={(e)=>handleChange(e)}
+                        value={data.confirmPassword}
+                        name="confirmPassword"
                         type="password"
                         label="Confirm Password"
                         variant="outlined"
