@@ -1,5 +1,6 @@
 import * as React from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Card, CardContent, Grid, TextField, Button, Typography, } from '@mui/material';
 import { deepPurple, indigo, } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -23,6 +24,68 @@ const theme = createTheme({
 
 
 export default function LoginForm() {
+
+  const url = "http://localhost:8000/api/login/";
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const [loginStatus, setLoginStatus] = useState(false);
+
+    const [formClicked, setFormClicked] = useState(false);
+
+    if (loginStatus) {
+      return (
+        <Navigate to="/user_home" />
+      );
+    }
+
+    const handleChange = (e) => {
+        const newData={...data}
+        newData[e.target.name] = e.target.value;
+        setData(newData);
+        console.log(newData);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const rawData = JSON.stringify({
+            "email": data.email,
+            "password": data.password,
+        });
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        // myHeaders.append("Cookie", "csrftoken=63gZUvpLj0nbjO8lY22YtqGjC3gm5syY9Xy8pbNpKzb6QnVPhmKYKOyL1OZc08TH");
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: rawData,
+            redirect: 'follow'
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              setFormClicked(true);
+              if (data.jwt) setLoginStatus(true);
+              console.log("logged in successfully"); 
+              localStorage.setItem("loginKey", data.jwt);
+            })
+            .catch(error => console.log(error));
+        
+            
+        // if (loginStatus) {
+        //   console.log("logged in successfully");
+        //   return (
+        //     <Navigate to="/user_home" />
+        //   )
+        // }
+    }
+
   return (
   <ThemeProvider theme={theme}>
     <CssBaseline />
@@ -31,10 +94,12 @@ export default function LoginForm() {
         <CardContent>
             <Typography mb={2} variant="h5" align="center">Welcome Back</Typography>
 
-            <form>
+            <form onSubmit={(e)=>handleSubmit(e)}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <TextField 
+                        onChange={(e)=>handleChange(e)}
+                        value={data.email}
                         required fullWidth
                         name="email"
                         type="email"
@@ -45,6 +110,8 @@ export default function LoginForm() {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField 
+                        onChange={(e)=>handleChange(e)}
+                        value={data.password}
                         required fullWidth
                         name="password"
                         type="password"
@@ -58,6 +125,9 @@ export default function LoginForm() {
                 <Grid item xs={12}></Grid>
             </Grid>
             </form>
+            {!loginStatus && formClicked &&
+                <p>Unrecognized username/password. Please try again.</p>
+            }
         </CardContent>
     </Card>
 </ThemeProvider>

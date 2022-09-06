@@ -15,8 +15,9 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import { indigo, } from '@mui/material/colors';
 
-// const pages = ['Products', 'Pricing', 'Blog'];
 const pages = ['Sign Up', 'Log In'];
+const paths = ['signup', 'login'];
+// pages and paths should line up
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Nav = () => {
@@ -93,7 +94,7 @@ const Nav = () => {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link style={{textDecoration: "none", color: "white"}} to={`/${page}`}>
+                    <Link style={{textDecoration: "none", color: "black"}} to={`/${paths[pages.indexOf(page)]}`}>
                         {page}
                     </Link>
                     </Typography>
@@ -127,7 +128,7 @@ const Nav = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link style={{textDecoration: "none", color: "white"}} to={`/${page}`}>
+                <Link style={{textDecoration: "none", color: "white"}} to={`/${paths[pages.indexOf(page)]}`}>
                         {page}
                 </Link>
               </Button>
