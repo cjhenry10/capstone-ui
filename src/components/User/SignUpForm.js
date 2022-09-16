@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Card, CardContent, Grid, TextField, Button, Typography, } from '@mui/material';
-import { deepPurple, indigo, } from '@mui/material/colors';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+// import { deepPurple, indigo, } from '@mui/material/colors';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import CssBaseline from '@mui/material/CssBaseline';
 
 
-const theme = createTheme({
-    palette: {
-      mode: 'light',
-      primary: {
-        main: indigo[400],
-        dark: indigo[600]
-      },
-      secondary: {
-        main: deepPurple[600],
-        dark: deepPurple[800]
-      }
-    }
-  });
+// const theme = createTheme({
+//     palette: {
+//       mode: 'light',
+//       primary: {
+//         main: indigo[400],
+//         dark: indigo[600]
+//       },
+//       secondary: {
+//         main: deepPurple[600],
+//         dark: deepPurple[800]
+//       }
+//     }
+//   });
 
 export default function SignUpForm() {
     // Axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
@@ -81,10 +81,10 @@ export default function SignUpForm() {
     }
 
   return (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Typography variant="h3" align="center" my={5}>Help Desk Wizard</Typography>
-    <Card sx={{ maxWidth: 760, mx: 'auto' }} variant="outlined">
+//   <ThemeProvider theme={theme}>
+//     <CssBaseline />
+<>
+    <Card sx={{ maxWidth: 760, mx: 'auto' }} elevation={6}>
         <CardContent>
             <Typography mb={2} variant="h5" align="center">Create an Account</Typography>
 
@@ -162,6 +162,6 @@ export default function SignUpForm() {
             </form>
         </CardContent>
     </Card>
-</ThemeProvider>
+    </>
   );
 }

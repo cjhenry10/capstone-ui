@@ -15,19 +15,11 @@ import { BrowserRouter, } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <>
   <React.StrictMode>
-    {/* <SignUpForm /> */}
-    {/* <LoginForm /> */}
-    {/* <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route path="expenses" element={<Expenses />} />
-        <Route path="invoices" element={<Invoices />} />
-      </Route>
-    </Routes>
-    </BrowserRouter> */}
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>
+  </>
 );

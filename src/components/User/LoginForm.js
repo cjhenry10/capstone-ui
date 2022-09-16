@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import {
   Card,
@@ -9,36 +9,36 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import { deepPurple, indigo } from '@mui/material/colors';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+// import { deepPurple, indigo } from '@mui/material/colors';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import CssBaseline from '@mui/material/CssBaseline';
+import AuthContext from '../../context/auth-context';
 
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: indigo[400],
-      dark: indigo[600],
-    },
-    secondary: {
-      main: deepPurple[600],
-      dark: deepPurple[800],
-    },
-  },
-});
+// const theme = createTheme({
+//   palette: {
+//     mode: 'light',
+//     primary: {
+//       main: indigo[400],
+//       dark: indigo[600],
+//     },
+//     secondary: {
+//       main: deepPurple[600],
+//       dark: deepPurple[800],
+//     },
+//   },
+// });
 
 export default function LoginForm() {
-  const url = 'http://localhost:8000/api/login/';
+  const ctx = useContext(AuthContext);
+  const { isLoggedIn } = ctx;
   const [data, setData] = useState({
     email: '',
     password: '',
   });
 
-  const [loginStatus, setLoginStatus] = useState(false);
-
   const [formClicked, setFormClicked] = useState(false);
 
-  if (loginStatus) {
+  if (isLoggedIn) {
     return <Navigate to='/user_home' />;
   }
 
@@ -46,54 +46,29 @@ export default function LoginForm() {
     const newData = { ...data };
     newData[e.target.name] = e.target.value;
     setData(newData);
-    console.log(newData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const rawData = JSON.stringify({
-      email: data.email,
-      password: data.password,
-    });
-
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
-    // myHeaders.append("Cookie", "csrftoken=63gZUvpLj0nbjO8lY22YtqGjC3gm5syY9Xy8pbNpKzb6QnVPhmKYKOyL1OZc08TH");
-
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: rawData,
-      credentials: 'include',
-      redirect: 'follow',
-    };
-
-    fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+    ctx.onLogin(data.email, data.password)
+      .then(() => {
         setFormClicked(true);
-        if (data.jwt) setLoginStatus(true);
-        console.log('logged in successfully');
-        // localStorage.setItem("loginKey", data.jwt);
       })
-      .catch((error) => console.log(error));
-
-    // if (loginStatus) {
-    //   console.log("logged in successfully");
-    //   return (
-    //     <Navigate to="/user_home" />
-    //   )
-    // }
+      .catch((error) => {
+        console.log('error');
+        console.log(error);
+        // setLoginStatus(false);
+      });
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Typography variant='h3' align='center' my={5}>
+    // <ThemeProvider theme={theme}>
+    //   <CssBaseline />
+    <>
+      {/* <Typography variant='h3' align='center' my={5}>
         Help Desk Wizard
-      </Typography>
-      <Card sx={{ maxWidth: 468, mx: 'auto' }} variant='outlined'>
+      </Typography> */}
+      <Card sx={{ maxWidth: 468, mx: 'auto' }} elevation={7}>
         <CardContent>
           <Typography mb={2} variant='h5' align='center'>
             Welcome Back
@@ -139,11 +114,11 @@ export default function LoginForm() {
               <Grid item xs={12}></Grid>
             </Grid>
           </form>
-          {!loginStatus && formClicked && (
-            <p>Unrecognized username/password. Please try again.</p>
+          {!ctx.isLoggedIn && formClicked && (
+            <p>Unrecognized login. Please try again.</p>
           )}
         </CardContent>
       </Card>
-    </ThemeProvider>
+    </>
   );
 }
