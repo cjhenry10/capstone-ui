@@ -10,6 +10,9 @@ import Logout from './components/User/Logout';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import { Paper } from '@mui/material';
+import Group from "./components/Groups/Group";
+import Role from "./components/Roles/Role";
+import AccountInfo from "./components/User/AccountInfo";
 
 export default function App() {
     let savedTheme;
@@ -58,6 +61,9 @@ export default function App() {
                 <Route path="/login" element={<LoginForm />}></Route>
                 <Route path='/user_home' element={<UserHome />}></Route>
                 <Route path='/logout' element={<Logout theme={theme}/>}></Route>
+                <Route path='/group' element={<Group theme={theme}/>}></Route>
+                <Route path='/role' element={<Role theme={theme}/>}></Route>
+                <Route path='/account' element={<AccountInfo theme={theme}/>}></Route>
             </Routes>
             </Paper>
         </AuthContextProvider>

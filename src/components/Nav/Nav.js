@@ -27,8 +27,8 @@ const loginPath = 'login';
 const logoutPage = 'Log Out';
 const logoutPath = 'logout';
 // pages that show up in user menu/settings on avatar
-const settings = ['Profile', 'Account', 'Dashboard'];
-const settingsPaths = ['', '', ''];
+const settings = ['Account'];
+const settingsPaths = ['account'];
 
 const Nav = ({onThemeChange, theme, mode: themeMode}) => {
   const { userData, isLoggedIn, isLoading, onLogout } =
@@ -53,8 +53,8 @@ const Nav = ({onThemeChange, theme, mode: themeMode}) => {
     pages = ['Sign Up'];
     paths = ['signup'];
   } else {
-    pages = ['Tickets', 'Group Info'];
-    paths = ['user_home', 'group'];
+    pages = ['Tickets', 'Role Info', 'Group Info'];
+    paths = ['user_home', 'role', 'group'];
   }
 
   let progressBar = (
