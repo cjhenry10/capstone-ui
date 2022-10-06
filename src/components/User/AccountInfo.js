@@ -37,7 +37,7 @@ const updateOptions = {
 
 const AccountInfo = () => {
   const authCtx = useContext(AuthContext);
-  const { userData, isLoggedIn } = authCtx;
+  const { userData, isLoggedIn, onUserDataUpdate } = authCtx;
 
   // a number that should change the amount of editable fields
   // based on role
@@ -100,6 +100,8 @@ const AccountInfo = () => {
     .then((response) => response.json())
     .then((data) => {
         console.log(data);
+        onUserDataUpdate(newData);
+        setShowForm(false);
         setShowSnackbar(true);
     })
     .catch((err) => console.error(err))

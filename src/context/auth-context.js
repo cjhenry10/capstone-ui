@@ -8,6 +8,7 @@ const AuthContext = React.createContext({
   isLoading: false,
   onLogout: () => {},
   onLogin: (email, password) => {},
+  onUserDataUpdate: (data) => {},
 });
 
 const urlLogin = 'http://localhost:8000/api/login/';
@@ -74,6 +75,10 @@ export const AuthContextProvider = (props) => {
     setHasToken(false);
   };
 
+  const updateUserData = (data) => {
+    setUserData((prev) => {return {...prev, name: data.name, email: data.email}});
+  }
+
   const handleLogin = async (email, password) => {
     setIsLoading(true);
     const rawData = JSON.stringify({
@@ -113,6 +118,7 @@ export const AuthContextProvider = (props) => {
         isLoading: isLoading,
         onLogout: handleLogout,
         onLogin: handleLogin,
+        onUserDataUpdate: updateUserData,
       }}
     >
       {props.children}
