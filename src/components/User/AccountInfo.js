@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import {
   Paper,
   Table,
@@ -16,12 +16,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import AuthContext from '../../context/auth-context';
 import Unauthorized from './Unauthorized';
-
-const convertDate = (date) => {
-  const jsDate = new Date(date);
-  const newDate = jsDate.toLocaleString('en-US', { dateStyle: 'medium' });
-  return newDate;
-};
+import convertDate from '../../helpers/convertDate';
 
 const updateUrl = 'http://localhost:8000/api/user/';
 const myHeaders = new Headers();
@@ -45,14 +40,17 @@ const AccountInfo = () => {
   // 2 can edit name, email, group, and role
   const permissions = 4;
 
-  const dataToShow = {
-    Name: userData.name,
-    Email: userData.email,
-    Group: userData.group || 'none',
+  const dataToShow = (data) => { 
+    return {
+    Name: data.name,
+    Email: data.email,
+    Group: data.group || 'none',
     Role: 'role?',
-    Created: convertDate(userData.creation_timestamp),
-    Modified: convertDate(userData.modification_timestamp) || 'none',
-  };
+    Created: convertDate(data.creation_timestamp),
+    Modified: convertDate(data.modification_timestamp) || 'none',
+  }};
+
+  const transformedData = dataToShow(userData);
 
   const stats = {
     'Open Tickets': 48,
@@ -63,8 +61,16 @@ const AccountInfo = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [data, setData] = useState(transformedData);
   const nameInputRef = useRef();
   const emailInputRef = useRef();
+
+  console.log('userData');
+  console.log(userData);
+  console.log('transformed data');
+  console.log(dataToShow(userData));
+  console.log('data');
+  console.log(data);
 
   const handleShowForm = () => {
     setShowForm(true);
@@ -86,13 +92,13 @@ const AccountInfo = () => {
     e.preventDefault();
 
     const newData = {
-        ...userData,
+        ...data,
         name: nameInputRef.current.value,
         email: emailInputRef.current.value,
         // creation_timestamp: null,
         // modification_timestamp: null,
-        modified_by_id: Number(userData.id),
-        // group_membership: [],
+        modified_by_id: Number(data.id),
+        group_membership: [],
       }
     updateOptions.body = JSON.stringify(newData);
     console.log(updateOptions.body);
@@ -103,6 +109,8 @@ const AccountInfo = () => {
         onUserDataUpdate(newData);
         setShowForm(false);
         setShowSnackbar(true);
+        console.log('handleSubmit');
+        setData(dataToShow(data));
     })
     .catch((err) => console.error(err))
 
@@ -126,16 +134,16 @@ const AccountInfo = () => {
       <Grid item xs={12}></Grid>
 
       {!showForm && (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <Typography mb={2} variant='h5' align='center'>
             Account Info
           </Typography>
           <TableContainer sx={{ maxWidth: 468, mx: 'auto' }} component={Paper}>
             <Table aria-label='simple table'>
               <TableBody>
-                {Object.entries(dataToShow).map(([key, value]) => {
+                {Object.entries(data).map(([key, value]) => {
                   return (
-                    <TableRow>
+                    <TableRow key={key}>
                       <TableCell
                         align='right'
                         sx={{ fontWeight: 'bold', height: 45, width: 100 }}
@@ -160,7 +168,7 @@ const AccountInfo = () => {
         </Grid>
       )}
       {showForm && (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <Typography mb={2} variant='h5' align='center'>
             Edit Account Info
           </Typography>
@@ -171,13 +179,13 @@ const AccountInfo = () => {
             >
               <Table aria-label='simple table'>
                 <TableBody>
-                  {Object.entries(dataToShow).map(([key, value], i, arr) => {
+                  {Object.entries(data).map(([key, value], i, arr) => {
                     if (i < arr.length - permissions) {
                       return (
-                        <TableRow>
+                        <TableRow key={key}>
                           <TableCell
                             align='right'
-                            sx={{ fontWeight: 'bold', height: 45, width: 100 }}
+                            sx={{ fontWeight: 'bold', height: 45, width: 100, maxWidth: 100 }}
                           >
                             {key}
                           </TableCell>
@@ -220,7 +228,7 @@ const AccountInfo = () => {
           </form>
         </Grid>
       )}
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} md={6}>
         <Typography mb={2} variant='h5' align='center'>
           Statistics
         </Typography>
@@ -229,7 +237,7 @@ const AccountInfo = () => {
             <TableBody>
               {Object.entries(stats).map(([key, value]) => {
                 return (
-                  <TableRow>
+                  <TableRow key={key}>
                     <TableCell
                       align='right'
                       sx={{ fontWeight: 'bold', height: 45, width: 150 }}

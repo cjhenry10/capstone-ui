@@ -31,6 +31,19 @@ const settings = ['Account'];
 const settingsPaths = ['account'];
 
 const Nav = ({onThemeChange, theme, mode: themeMode}) => {
+
+  const mode = theme.palette.mode;
+
+  const [fontColor, setFontColor] = React.useState('#fff');
+
+  React.useEffect(() => {
+    if (mode === 'dark') {
+      setFontColor('#fff');
+    } else {
+      setFontColor('#000');
+    }
+  }, [mode, theme]);
+
   const { userData, isLoggedIn, isLoading, onLogout } =
     React.useContext(AuthContext);
 
@@ -167,7 +180,7 @@ const Nav = ({onThemeChange, theme, mode: themeMode}) => {
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign='center'>
                       <Link
-                        style={{ textDecoration: 'none', color: 'black' }}
+                        style={{ textDecoration: 'none', color: fontColor }}
                         to={`/${paths[pages.indexOf(page)]}`}
                       >
                         {page}
