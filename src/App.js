@@ -5,6 +5,8 @@ import Home from './components/LandingPage/Home';
 import SignUpForm from './components/User/SignUpForm';
 import LoginForm from './components/User/LoginForm';
 import UserHome from "./components/Tickets/UserHome";
+import TicketCreation from "./components/Tickets/TicketCreation";
+import SingleTicket from "./components/Tickets/SingleTicket";
 import { AuthContextProvider } from './context/auth-context';
 import Logout from './components/User/Logout';
 import { createTheme } from '@mui/material/styles';
@@ -57,6 +59,8 @@ export default function App() {
                 <Route path="/signup" element={<SignUpForm />}></Route>
                 <Route path="/login" element={<LoginForm />}></Route>
                 <Route path='/user_home' element={<UserHome />}></Route>
+                <Route path='/single_ticket' element={<SingleTicket />}></Route>
+                <Route path='/ticket_creation' element={<TicketCreation />}></Route>
                 <Route path='/logout' element={<Logout theme={theme}/>}></Route>
             </Routes>
             </Paper>
