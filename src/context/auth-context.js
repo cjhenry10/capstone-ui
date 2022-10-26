@@ -53,7 +53,7 @@ export const AuthContextProvider = (props) => {
         else return response.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setUserData(data);
         setIsLoggedIn(true);
         setIsLoading(false);

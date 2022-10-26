@@ -41,7 +41,7 @@ const deleteRequest = async (objects) => {
   
 };
 
-const DeleteGroups = (props) => {
+const DeleteUsers = (props) => {
   const [hasItems, setHasItems] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -79,7 +79,7 @@ const DeleteGroups = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
-                <TableCell>Group Name</TableCell>
+                <TableCell>Name</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -87,7 +87,7 @@ const DeleteGroups = (props) => {
                 return (
                   <TableRow key={item.id}>
                     <TableCell sx={{ height: 45 }}>{item.id}</TableCell>
-                    <TableCell>{item.group_name}</TableCell>
+                    <TableCell>{item.name}</TableCell>
                   </TableRow>
                 );
               })}
@@ -120,4 +120,4 @@ const DeleteGroups = (props) => {
   );
 };
 
-export default DeleteGroups;
+export default DeleteUsers;

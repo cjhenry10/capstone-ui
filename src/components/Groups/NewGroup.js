@@ -30,6 +30,7 @@ const NewGroup = (props) => {
     .then((data) => {
       props.onModalClose();
       props.dataUpdated();
+      props.dataSaved('Group added successfully')
     })
     .catch((err) => console.log(err));
   }

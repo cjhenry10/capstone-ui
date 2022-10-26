@@ -13,6 +13,7 @@ import { Paper } from '@mui/material';
 import AllGroups from './components/Groups/AllGroups';
 import Role from './components/Roles/Role';
 import AccountInfo from './components/User/AccountInfo';
+import AllUsers from './components/Users/AllUsers';
 
 export default function App() {
   let savedTheme;
@@ -90,6 +91,7 @@ export default function App() {
               path='/account'
               element={<AccountInfo theme={theme} />}
             ></Route>
+            <Route path='/users' element={<AllUsers theme={theme} />}></Route>
           </Routes>
         </Paper>
       </AuthContextProvider>
