@@ -53,8 +53,8 @@ const Nav = ({onThemeChange, theme, mode: themeMode}) => {
     pages = ['Sign Up'];
     paths = ['signup'];
   } else {
-    pages = ['Tickets', 'Group Info'];
-    paths = ['user_home', 'group'];
+    pages = ['Tickets', 'Group Info', 'Create Ticket'];
+    paths = ['user_home', 'group', 'ticket_creation'];
   }
 
   let progressBar = (

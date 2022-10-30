@@ -16,14 +16,14 @@ const style = {
   p: 4,
 };
 
-export default function DetailsModal() {
+export default function DeleteModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}>More Details</Button>
+      <Button onClick={handleOpen}>Close Ticket</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -32,10 +32,10 @@ export default function DetailsModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Title
+            Are you sure you want to close the selected ticket?
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            This pop-up will say additional details about the single selected ticket.
+            <Button onClick ={handleClose}>Yes</Button><Button onClick ={handleClose}>No</Button>
           </Typography>
         </Box>
       </Modal>

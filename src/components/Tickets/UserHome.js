@@ -3,13 +3,14 @@ import { Card, Grid, Typography } from '@mui/material';
 import AuthContext from '../../context/auth-context';
 import Unauthorized from '../User/Unauthorized';
 import TicketList from './TicketList';
-import BasicModal from './SingleTicketList';
+import DetailsModal from './SingleTicketList';
+import DeleteModal from './DeleteTicket';
 
 export default function UserHome() {
   const authCtx = useContext(AuthContext);
   const { isLoading, isLoggedIn } = authCtx;
 
-  if (!isLoggedIn) { //I changed this so I could see what my ticketlist looks like; will change back after we get auth working 
+  if (!isLoggedIn) {
     return <Unauthorized /> 
   }
 
@@ -22,7 +23,7 @@ export default function UserHome() {
               <Typography variant='h4'>Tickets</Typography>
             </Grid>
             <Grid item xs={12}>
-              <TicketList /><BasicModal />
+              <TicketList /><DetailsModal /><DeleteModal />
             </Grid>
           </Grid>
         </Card>
