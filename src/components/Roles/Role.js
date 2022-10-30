@@ -75,7 +75,7 @@ const Role = () => {
         <Typography pb={2} pr={4} variant='h5' align='left' display='inline-block'>
           All Roles
         </Typography>
-        <Button variant='contained' endIcon={<AddIcon />} size='small'>New Role</Button>
+        {/* <Button variant='contained' endIcon={<AddIcon />} size='small'>New Role</Button> */}
         <DataGrid
           rows={roleData}
           columns={columns}

@@ -55,7 +55,7 @@ const AllUsers = () => {
           );
         });
             setUserData(data.results);
-            // console.log(data.results);
+            console.log(data.results);
         })
         .catch(err => console.log(err));
     }

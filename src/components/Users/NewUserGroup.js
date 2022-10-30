@@ -13,8 +13,8 @@ import {
 import React, { useRef } from 'react';
 import useApi from '../../hooks/useApi';
 
-const roles = ['User', 'Technician', 'Admin'];
 const urlGroups = 'http://localhost:8000/api/groups/';
+const urlRoles = 'http://localhost:8000/api/roles/';
 
 const NewUserGroup = ({
   tempRoleData,
@@ -25,16 +25,22 @@ const NewUserGroup = ({
   const groupRef = useRef();
   const roleRef = useRef();
 
-  const {data} = useApi(urlGroups);
+  const {data: groupData} = useApi(urlGroups);
+  const {roleData} = useApi(urlRoles);
   const allGroups = [];
   const usedGroups = [];
   let groups = [];
+  const roles = [];
+
   
   tempRoleData.forEach(group => usedGroups.push(group.group_id));
   
-  if (data) {
-    data.forEach(group => allGroups.push(group.group_name))
+  if (groupData) {
+    groupData.forEach(group => allGroups.push(group.group_name))
     groups = allGroups.filter(group => !usedGroups.includes(group))
+  }
+  if (roleData) {
+    roleData.forEach(role => roles.push(role.role_name));
   }
 
   const handleSubmit = (e) => {

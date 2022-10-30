@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import convertDate from '../helpers/convertDate';
 
 // WORK IN PROGRESS
+const rolesUrl = 'http://localhost:8000/api/roles/';
 
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
@@ -24,6 +25,7 @@ const useApi = (url, method, body) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [roleData, setRoleData] = useState(null);
   
   const options = {
     method: 'GET',
@@ -55,7 +57,7 @@ const useApi = (url, method, body) => {
       .then((d) => {
         // console.log('results: ', d.results)
         if (d.results) {
-          // console.log(convertAllDates(d.results));
+          console.log(convertAllDates(d.results));
           setData(convertAllDates(d.results));
         }
       })
@@ -65,6 +67,21 @@ const useApi = (url, method, body) => {
       })
       .finally(() => setLoading(false));
   };
+
+  useEffect(() => {
+    fetch(rolesUrl, options)
+    .then((res)=> res.json())
+    .then((d) => {
+      if (d.results) {
+        setRoleData(convertAllDates(d.results));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      setError(err);
+    });
+  }, [])
+  
 
   // const fetchAll = async (apiUrls, apiOptions) => {
   //   return await Promise.all(apiUrls.map((url) => fetch(url, apiOptions)))
@@ -89,7 +106,7 @@ const useApi = (url, method, body) => {
     }
   }, []);
 
-  return { fetchOne, data, loading, error };
+  return { fetchOne, data, loading, error, roleData };
 };
 
 export default useApi;

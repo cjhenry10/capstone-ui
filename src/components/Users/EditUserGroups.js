@@ -45,13 +45,26 @@ const EditUserGroups = ({
    * - save edited data to server
    *
    */
-  const { data } = useApi(groupUrl);
-  // console.log(data);
+  // const [groupData, setGroupData] = useState([]);
+  const { roleData } = useApi();
+  console.log(roleData);
+  const {data: groupData} = useApi();
+
+  
+
+
   const groups = [];
-  if (data) {
-    data.forEach((group) => groups.push(group.group_name));
+  if (groupData) {
+    groupData.forEach((group) => groups.push(group.group_name));
   }
 
+  console.log(groupData);
+  const roles = [];
+  if (roleData) {
+    roleData.forEach(role => roles.push(role.role_name));
+  }
+
+  console.log(groupData);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
   const [tempRoleData, setTempRoleData] = useState(
     selectedUserData.group_membership ? selectedUserData.group_membership : []
@@ -86,7 +99,7 @@ const EditUserGroups = ({
       flex: 1,
       editable: true,
       type: 'singleSelect',
-      valueOptions: ['User', 'Technician', 'Admin'],
+      valueOptions: roles,
     },
   ];
 
