@@ -8,7 +8,7 @@ export default function TicketCreation() {
   const authCtx = useContext(AuthContext);
   const { isLoading, isLoggedIn } = authCtx;
 
-  if (!isLoggedIn) { //I changed this so I could see what my ticketlist looks like; will change back after we get auth working 
+  if (!isLoggedIn) {
     return <Unauthorized /> 
   }
 

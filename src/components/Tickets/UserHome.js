@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, Grid, Typography } from '@mui/material';
 import AuthContext from '../../context/auth-context';
 import Unauthorized from '../User/Unauthorized';
@@ -9,6 +9,14 @@ import DeleteModal from './DeleteTicket';
 export default function UserHome() {
   const authCtx = useContext(AuthContext);
   const { isLoading, isLoggedIn } = authCtx;
+
+const [ticketID, setTicketID] = useState ([])
+
+const ticketHandler = (id) => {
+  console.log("passed in id:", id)
+  setTicketID(id);
+  console.log("changed state to:", ticketID)
+}
 
   if (!isLoggedIn) {
     return <Unauthorized /> 
@@ -23,7 +31,7 @@ export default function UserHome() {
               <Typography variant='h4'>Tickets</Typography>
             </Grid>
             <Grid item xs={12}>
-              <TicketList /><DetailsModal /><DeleteModal />
+              <TicketList ticketHandler={ticketHandler} /><DetailsModal ticketID={ticketID} /><DeleteModal ticketID={ticketID} />
             </Grid>
           </Grid>
         </Card>
