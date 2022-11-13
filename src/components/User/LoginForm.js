@@ -8,6 +8,7 @@ import {
   TextField,
   Button,
   Typography,
+  Alert,
 } from '@mui/material';
 // import { deepPurple, indigo } from '@mui/material/colors';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -115,7 +116,7 @@ export default function LoginForm() {
             </Grid>
           </form>
           {!ctx.isLoggedIn && formClicked && (
-            <p>Unrecognized login. Please try again.</p>
+            <Alert severity='error' variant='outlined'>Unrecognized login. Please try again.</Alert>
           )}
         </CardContent>
       </Card>

@@ -27,10 +27,23 @@ const loginPath = 'login';
 const logoutPage = 'Log Out';
 const logoutPath = 'logout';
 // pages that show up in user menu/settings on avatar
-const settings = ['Profile', 'Account', 'Dashboard'];
-const settingsPaths = ['', '', ''];
+const settings = ['Account'];
+const settingsPaths = ['account'];
 
 const Nav = ({onThemeChange, theme, mode: themeMode}) => {
+
+  const mode = theme.palette.mode;
+
+  const [fontColor, setFontColor] = React.useState('#fff');
+
+  React.useEffect(() => {
+    if (mode === 'dark') {
+      setFontColor('#fff');
+    } else {
+      setFontColor('#000');
+    }
+  }, [mode, theme]);
+
   const { userData, isLoggedIn, isLoading, onLogout } =
     React.useContext(AuthContext);
 
@@ -53,8 +66,8 @@ const Nav = ({onThemeChange, theme, mode: themeMode}) => {
     pages = ['Sign Up'];
     paths = ['signup'];
   } else {
-    pages = ['Tickets', 'Group Info', 'Create Ticket'];
-    paths = ['user_home', 'group', 'ticket_creation'];
+    pages = ['Tickets', 'Users', 'Roles', 'Groups','Create Ticket'];
+    paths = ['user_home', 'users', 'role', 'group','ticket_creation'];
   }
 
   let progressBar = (
@@ -167,7 +180,7 @@ const Nav = ({onThemeChange, theme, mode: themeMode}) => {
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign='center'>
                       <Link
-                        style={{ textDecoration: 'none', color: 'black' }}
+                        style={{ textDecoration: 'none', color: fontColor }}
                         to={`/${paths[pages.indexOf(page)]}`}
                       >
                         {page}

@@ -26,15 +26,15 @@ export default function Home({theme}) {
 
 
   const [iconColor, setIconColor] = useState('');
-  const [buttonColor, setButtonColor] = useState('#ddd');
+  // const [buttonColor, setButtonColor] = useState('#b4bbe9');
 
   useEffect(() => {
     if (mode === 'dark') {
       setIconColor('#fff');
-      setButtonColor('#ddd');
+      // setButtonColor('#b4bbe9');
     } else {
       setIconColor('#000');
-      setButtonColor('');
+      // setButtonColor('');
     }
   }, [mode, theme]);
   
@@ -75,7 +75,7 @@ export default function Home({theme}) {
             </Button>
             <Button
               onClick={handleLoginButton}
-              sx={{ m: 1, maxWidth: '200px', color: buttonColor }}
+              sx={{ m: 1, maxWidth: '200px' }}
               type='submit'
               variant='outlined'
               color='primary'
