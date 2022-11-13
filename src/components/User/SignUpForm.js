@@ -1,6 +1,8 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { Card, CardContent, Grid, TextField, Button, Typography, } from '@mui/material';
+import React from 'react';
+import { useState, useContext } from 'react';
+import { Navigate } from 'react-router-dom';
+import { Card, CardContent, Grid, TextField, Button, Typography, Alert, } from '@mui/material';
+import AuthContext from '../../context/auth-context';
 // import { deepPurple, indigo, } from '@mui/material/colors';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import CssBaseline from '@mui/material/CssBaseline';
@@ -21,15 +23,9 @@ import { Card, CardContent, Grid, TextField, Button, Typography, } from '@mui/ma
 //   });
 
 export default function SignUpForm() {
-    // Axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+    const {onLogin} = useContext(AuthContext);
     const url = "http://localhost:8000/api/register/";
-    // const config = { 
-    //     headers: {
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Content-Type": "application/json",
-    //     "Cookie": "csrftoken=63gZUvpLj0nbjO8lY22YtqGjC3gm5syY9Xy8pbNpKzb6QnVPhmKYKOyL1OZc08TH",
-    //     } 
-    // };
+
     const [data, setData] = useState({
         firstName: "",
         lastName: "",
@@ -39,23 +35,20 @@ export default function SignUpForm() {
         confirmPassword: "",
     });
 
+    const [problem, setProblem] = useState('');
+
     const handleChange = (e) => {
         const newData={...data}
         newData[e.target.name] = e.target.value;
         setData(newData);
-        console.log(newData);
+        // console.log(newData);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Axios.post(url,{
-        //     "name": data.firstName + " " + data.lastName,
-        //     "email": data.email,
-        //     "password": data.password,
-        // })
-        // .then(res=>{
-        //     console.log(res.data);
-        // })
+
+        const loginData = {email: data.email, password: data.password}
+        
         const rawData = JSON.stringify({
             "name": data.firstName + " " + data.lastName,
             "email": data.email,
@@ -75,8 +68,20 @@ export default function SignUpForm() {
 
         fetch(url, requestOptions)
             .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error))
+            .then(data => {
+                // console.log(data);
+                // console.log(data.email[0]);
+                if (data.email === loginData.email) {
+                    onLogin(loginData.email, loginData.password);
+                    setProblem('');
+                    return <Navigate to='/user_home' />;
+                }
+                else {
+                    console.log(data.email[0]);
+                    setProblem(data.email[0]);
+                }
+            })
+            .catch(error => console.log("error: ", error))
 
     }
 
@@ -158,8 +163,12 @@ export default function SignUpForm() {
                 <Grid item xs={12}>
                     <Button type="submit" variant="contained" color="primary" fullWidth>Sign Up</Button>
                 </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
             </form>
+            {problem && (
+            <Alert severity='error' variant='outlined'>{problem}</Alert>
+          )}
         </CardContent>
     </Card>
     </>

@@ -8,6 +8,7 @@ const AuthContext = React.createContext({
   isLoading: false,
   onLogout: () => {},
   onLogin: (email, password) => {},
+  onUserDataUpdate: (data) => {},
 });
 
 const urlLogin = 'http://localhost:8000/api/login/';
@@ -52,7 +53,7 @@ export const AuthContextProvider = (props) => {
         else return response.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setUserData(data);
         setIsLoggedIn(true);
         setIsLoading(false);
@@ -73,6 +74,10 @@ export const AuthContextProvider = (props) => {
     setIsLoggedIn(false);
     setHasToken(false);
   };
+
+  const updateUserData = (data) => {
+    setUserData((prev) => {return {...prev, name: data.name, email: data.email}});
+  }
 
   const handleLogin = async (email, password) => {
     setIsLoading(true);
@@ -113,6 +118,7 @@ export const AuthContextProvider = (props) => {
         isLoading: isLoading,
         onLogout: handleLogout,
         onLogin: handleLogin,
+        onUserDataUpdate: updateUserData,
       }}
     >
       {props.children}
