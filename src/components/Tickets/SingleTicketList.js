@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function DetailsModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -35,10 +35,11 @@ export default function BasicModal() {
             Title
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            This pop-up will say additional details about the selected ticket.
+            This pop-up will say additional details about the single selected ticket.
           </Typography>
         </Box>
       </Modal>
     </div>
   );
+  
 }
