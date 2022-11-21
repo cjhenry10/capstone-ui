@@ -51,7 +51,7 @@ export default function DeleteModal({ticketID}) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Close Ticket</Button>
+      {ticketID.length  > 0 ? <Button onClick={handleOpen}>Close Ticket</Button> : <Button disabled>Close Ticket</Button>}
       <Modal
         open={open}
         onClose={handleClose}

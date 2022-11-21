@@ -3,7 +3,7 @@ import { Card, Grid, Typography } from '@mui/material';
 import AuthContext from '../../context/auth-context';
 import Unauthorized from '../User/Unauthorized';
 import TicketList from './TicketList';
-import DetailsModal from './SingleTicketList';
+import UpdateTicket from './UpdateTicket';
 import DeleteModal from './DeleteTicket';
 
 export default function UserHome() {
@@ -31,7 +31,7 @@ const ticketHandler = (id) => {
               <Typography variant='h4'>Tickets</Typography>
             </Grid>
             <Grid item xs={12}>
-              <TicketList ticketHandler={ticketHandler} /><DetailsModal ticketID={ticketID} /><DeleteModal ticketID={ticketID} />
+              <TicketList ticketHandler={ticketHandler} /><UpdateTicket ticketID={ticketID} /><DeleteModal ticketID={ticketID} />
             </Grid>
           </Grid>
         </Card>
