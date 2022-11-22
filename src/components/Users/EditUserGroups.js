@@ -55,13 +55,14 @@ const EditUserGroups = ({
 
   const groups = [];
   if (groupData) {
-    groupData.forEach((group) => groups.push(group.group_name));
+    groupData.forEach((group) => groups.push(group.id));
   }
 
   console.log(groupData);
   const roles = [];
   if (roleData) {
-    roleData.forEach(role => roles.push(role.role_name));
+    console.log(roleData)
+    roleData.forEach(role => roles.push(role.id));
   }
 
   console.log(groupData);
@@ -111,12 +112,12 @@ const EditUserGroups = ({
   const handleSave = () => {
     console.log(selectedUserData);
     console.log(tempRoleData);
-    const newRoles = tempRoleData.filter(
-      (item) => !selectedUserData.group_membership.includes(item)
-    );
+    // const newRoles = tempRoleData.filter(
+    //   (item) => !selectedUserData.group_membership.includes(item)
+    // );
     editOptions.body = JSON.stringify({
-      ...selectedUserData,
-      group_membership: newRoles,
+      // ...selectedUserData,
+      group_membership: tempRoleData,
     });
     console.log(editOptions.body);
     fetch(editUrl + selectedUserData.id + '/', editOptions)
@@ -126,6 +127,8 @@ const EditUserGroups = ({
     setEditModalOpen(false);
     setTempRoleData([]);
   };
+
+  console.log(tempRoleData)
 
   // const handleNewUser = () => {
   //   console.log(tempRoleData);

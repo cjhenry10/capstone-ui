@@ -36,11 +36,12 @@ const NewUserGroup = ({
   tempRoleData.forEach(group => usedGroups.push(group.group_id));
   
   if (groupData) {
-    groupData.forEach(group => allGroups.push(group.group_name))
+    console.log(groupData)
+    groupData.forEach(group => allGroups.push(group.id))
     groups = allGroups.filter(group => !usedGroups.includes(group))
   }
   if (roleData) {
-    roleData.forEach(role => roles.push(role.role_name));
+    roleData.forEach(role => roles.push(role.id));
   }
 
   const handleSubmit = (e) => {
