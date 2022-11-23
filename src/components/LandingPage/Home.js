@@ -58,8 +58,7 @@ export default function Home({theme}) {
             variant='h5'
             sx={{ pb: 1, fontSize: 'clamp(20px, 3vw, 32px)' }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Improve customer support through the <b><em>magic</em></b> of an optimized support ticket resolution system.
           </Typography>
 
           <Box textAlign='center'>
@@ -94,12 +93,11 @@ export default function Home({theme}) {
           <Card>
             <CardContent>
               <Typography mb={2} variant='h6' align='left'>
-                Feature 1
+                Work Notes
                 <Logo color={iconColor} width='0.75em' margin='0 20px' />
               </Typography>
               <Typography variant='body1'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Leave messages on tickets to denote progress and improve technician communication.
               </Typography>
             </CardContent>
           </Card>
@@ -108,12 +106,11 @@ export default function Home({theme}) {
           <Card>
             <CardContent>
               <Typography mb={2} variant='h6' align='left'>
-                Feature 2
+                Groups
                 <Logo color={iconColor} width='0.75em' margin='0 20px' />
               </Typography>
               <Typography variant='body1'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Create and manage groups of users to stay organized as you grow your business.
               </Typography>
             </CardContent>
           </Card>
@@ -122,12 +119,11 @@ export default function Home({theme}) {
           <Card>
             <CardContent>
               <Typography mb={2} variant='h6' align='left'>
-                Feature 3
+                Roles
                 <Logo color={iconColor} width='0.75em' margin='0 20px' />
               </Typography>
               <Typography variant='body1'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Take advantage of role management to keep control of the resolution process.
               </Typography>
             </CardContent>
           </Card>
