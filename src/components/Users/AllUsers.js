@@ -1,7 +1,8 @@
-import { Paper, Box, Grid, Badge, Button, Typography } from '@mui/material'
+import { Paper, Box, Grid, Badge, Button, Typography, IconButton, Snackbar } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 import React, { useEffect, useState } from 'react';
 import convertDate from '../../helpers/convertDate';
 import EditUserGroups from './EditUserGroups';
@@ -55,7 +56,7 @@ const AllUsers = () => {
           );
         });
             setUserData(data.results);
-            console.log(data.results);
+            // console.log(data.results);
         })
         .catch(err => console.log(err));
     }
@@ -103,9 +104,46 @@ const AllUsers = () => {
         },
       ], []);
 
+      const [showSnackbar, setShowSnackbar] = useState(false);
+      const [snackbarMessage, setSnackbarMessage] = useState('');
+
+
+      const handleCloseSnackbar = (e, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setShowSnackbar(false);
+      };
+
+      const action = (
+        <>
+          <IconButton
+            size='small'
+            aria-label='close'
+            color='inherit'
+            onClick={handleCloseSnackbar}
+          >
+            <CloseIcon fontSize='small' />
+          </IconButton>
+        </>
+      );
+
+      const dataSaved = (message) => {
+        setSnackbarMessage(message);
+        setShowSnackbar(true);
+        getUsers();
+      };
+
   return (
     <>
-    {editModalOpen && <EditUserGroups {...{selectedUserData, editModalOpen, setEditModalOpen, }} />}
+    <Snackbar
+        open={showSnackbar}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        action={action}
+      />
+    {editModalOpen && <EditUserGroups {...{selectedUserData, editModalOpen, setEditModalOpen, dataSaved }} />}
     <Paper style={{padding: 16}}>
     <DeleteUsers
           data={selectedData}

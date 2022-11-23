@@ -57,7 +57,7 @@ const useApi = (url, method, body) => {
       .then((d) => {
         // console.log('results: ', d.results)
         if (d.results) {
-          console.log(convertAllDates(d.results));
+          // console.log(convertAllDates(d.results));
           setData(convertAllDates(d.results));
         }
       })
@@ -100,7 +100,7 @@ const useApi = (url, method, body) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log('in custom hook useEffect')
+    // console.log('in custom hook useEffect')
     if (url) {
       fetchOne(url);
     }

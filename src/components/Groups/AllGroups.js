@@ -54,8 +54,8 @@ const Group = () => {
   const { fetchOne, data, loading } = useApi(
     'http://localhost:8000/api/groups/'
   );
-  console.log(selected);
-  console.log(selectedData);
+  // console.log(selected);
+  // console.log(selectedData);
 
   const columns = React.useMemo(
     () => [

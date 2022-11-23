@@ -39,6 +39,7 @@ const EditUserGroups = ({
   selectedUserData,
   editModalOpen,
   setEditModalOpen,
+  dataSaved
 }) => {
   /** TODO:
    * - get groups to display in dropdown
@@ -47,7 +48,7 @@ const EditUserGroups = ({
    */
   // const [groupData, setGroupData] = useState([]);
   const { roleData } = useApi();
-  console.log(roleData);
+  // console.log(roleData);
   const {data: groupData} = useApi();
 
   
@@ -58,14 +59,14 @@ const EditUserGroups = ({
     groupData.forEach((group) => groups.push(group.id));
   }
 
-  console.log(groupData);
+  // console.log(groupData);
   const roles = [];
   if (roleData) {
-    console.log(roleData)
+    // console.log(roleData)
     roleData.forEach(role => roles.push(role.id));
   }
 
-  console.log(groupData);
+  // console.log(groupData);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
   const [tempRoleData, setTempRoleData] = useState(
     selectedUserData.group_membership ? selectedUserData.group_membership : []
@@ -110,8 +111,8 @@ const EditUserGroups = ({
   };
 
   const handleSave = () => {
-    console.log(selectedUserData);
-    console.log(tempRoleData);
+    // console.log(selectedUserData);
+    // console.log(tempRoleData);
     // const newRoles = tempRoleData.filter(
     //   (item) => !selectedUserData.group_membership.includes(item)
     // );
@@ -119,16 +120,26 @@ const EditUserGroups = ({
       // ...selectedUserData,
       group_membership: tempRoleData,
     });
-    console.log(editOptions.body);
+    // console.log(editOptions.body);
     fetch(editUrl + selectedUserData.id + '/', editOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+      .then((data) => {
+        console.log(data);
+        if (!data.detail) {
+          dataSaved('Role added successfully.');
+        } else {
+        dataSaved('Something went wrong: ' + data.detail);
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        // dataSaved('Something went wrong: ' + err);
+      });
     setEditModalOpen(false);
     setTempRoleData([]);
   };
 
-  console.log(tempRoleData)
+  // console.log(tempRoleData)
 
   // const handleNewUser = () => {
   //   console.log(tempRoleData);

@@ -36,7 +36,7 @@ const NewUserGroup = ({
   tempRoleData.forEach(group => usedGroups.push(group.group_id));
   
   if (groupData) {
-    console.log(groupData)
+    // console.log(groupData)
     groupData.forEach(group => allGroups.push(group.id))
     groups = allGroups.filter(group => !usedGroups.includes(group))
   }
