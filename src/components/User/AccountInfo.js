@@ -44,8 +44,6 @@ const AccountInfo = () => {
     return {
     Name: data.name,
     Email: data.email,
-    Group: data.group || 'none',
-    Role: 'role?',
     Created: convertDate(data.creation_timestamp),
     Modified: convertDate(data.modification_timestamp) || 'none',
   }};
@@ -130,7 +128,7 @@ const AccountInfo = () => {
 
   return (
     <>
-    <Grid container spacing={2} sx={{ px: 5 }}>
+    <Grid container spacing={2} sx={{ px: 5, justifyContent: 'center' }}>
       <Grid item xs={12}></Grid>
 
       {!showForm && (
@@ -228,7 +226,7 @@ const AccountInfo = () => {
           </form>
         </Grid>
       )}
-      <Grid item xs={12} md={6}>
+      {/*<Grid item xs={12} md={6}>
         <Typography mb={2} variant='h5' align='center'>
           Statistics
         </Typography>
@@ -251,7 +249,7 @@ const AccountInfo = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </Grid>
+            </Grid>*/}
     </Grid>
     <Snackbar open={showSnackbar} autoHideDuration={5000} onClose={handleCloseSnackbar} message='Update successful' action={action} />
     </>

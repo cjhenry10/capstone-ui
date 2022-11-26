@@ -58,7 +58,9 @@ export default function UpdateTicket({ticketID}) {
         console.log(error)
       }
   }
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false)
+  };
   const handleUpdate = async () => {
   
     console.log('CLICKED and ticketID:', ticketID)
@@ -93,15 +95,15 @@ export default function UpdateTicket({ticketID}) {
     }
   }
 
-  return (
-    <div>
-      {ticketID.length > 0 ? <Button onClick={handleOpen}>Update Ticket</Button> : <Button disabled>Update Ticket</Button>}
+  return (    
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+        <div>
+      {ticketID.length > 0 ? <Button onClick={handleOpen}>Update Ticket</Button> : <Button disabled>Update Ticket</Button>}
         <Box sx={style}>
         {error ? <Typography  id="modal-modal-title" variant="h6" component="h6">{errorMsg}</Typography> : <></>}
         {
@@ -153,8 +155,9 @@ export default function UpdateTicket({ticketID}) {
             </>
         }
         </Box>
+        </div>
       </Modal>
-    </div>
+    
   );
   
 }

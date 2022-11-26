@@ -29,6 +29,7 @@ const AllUsers = () => {
     const [selected, setSelected] = useState([]);
     const [selectedData, setSelectedData] = useState([]);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const getDataToModify = () => {
       const modData = userData.filter((item) => selected.includes(item.id));
@@ -56,6 +57,7 @@ const AllUsers = () => {
           );
         });
             setUserData(data.results);
+            setLoading(false)
             // console.log(data.results);
         })
         .catch(err => console.log(err));
@@ -197,6 +199,7 @@ const AllUsers = () => {
             onSelectionModelChange={(s) => setSelected(s)}
             selectionModel={selected}
             experimentalFeatures={{ newEditingApi: true }}
+            loading={loading}
             />
           </Box>
         </Box>

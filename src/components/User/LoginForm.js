@@ -40,7 +40,7 @@ export default function LoginForm() {
   const [formClicked, setFormClicked] = useState(false);
 
   if (isLoggedIn) {
-    return <Navigate to='/user_home' />;
+    return <Navigate to='/tickets' />;
   }
 
   const handleChange = (e) => {

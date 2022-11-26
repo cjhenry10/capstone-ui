@@ -21,6 +21,7 @@ const groupOptions = {
 const Role = () => {
   const authCtx = useContext(AuthContext);
   const { isLoggedIn } = authCtx;
+  const [loading, setLoading] = useState(true);
 
   const [roleData, setRoleData] = useState([]);
   useEffect(() => {
@@ -36,6 +37,7 @@ const Role = () => {
           );
         });
         setRoleData(newData);
+        setLoading(false)
       })
       .catch((err) => console.error(err));
   }, []);
@@ -83,6 +85,7 @@ const Role = () => {
           rowsPerPageOptions={[5]}
           checkboxSelection
           disableSelectionOnClick
+          loading={loading}
           // experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>

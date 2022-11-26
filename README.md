@@ -6,6 +6,12 @@ Run `npm ci` to install all dependencies
 
 Run `npm start` in the capstone-ui project folder to view website
 
+# Building
+
+Run `docker compose up` while in the root directory for this project (~/capstone-ui)
+Run `docker compose down` to stop the container
+Perform the same action in the (~/capstone-project) directory to launch the API
+
 # Context
 ## AuthContext
 User context is available throughout the app:

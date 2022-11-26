@@ -175,7 +175,6 @@ const Group = () => {
         action={action}
       />
       <Backdrop
-        open={loading}
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
           color: indigo[100],
@@ -267,6 +266,7 @@ const Group = () => {
               onCellEditStop={(params) => {
                 setRowId(params.id);
               }}
+              loading={loading}
             />
           </Box>
         </Box>

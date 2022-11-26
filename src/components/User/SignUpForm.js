@@ -74,7 +74,7 @@ export default function SignUpForm() {
                 if (data.email === loginData.email) {
                     onLogin(loginData.email, loginData.password);
                     setProblem('');
-                    return <Navigate to='/user_home' />;
+                    return <Navigate to='/tickets' />;
                 }
                 else {
                     console.log(data.email[0]);

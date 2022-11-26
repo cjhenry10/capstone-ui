@@ -67,7 +67,7 @@ const Nav = ({onThemeChange, theme, mode: themeMode}) => {
     paths = ['signup'];
   } else {
     pages = ['Tickets', 'Users', 'Roles', 'Groups','Create Ticket'];
-    paths = ['user_home', 'users', 'role', 'group','ticket_creation'];
+    paths = ['tickets', 'users', 'role', 'group','ticket_creation'];
   }
 
   let progressBar = (
@@ -119,8 +119,7 @@ const Nav = ({onThemeChange, theme, mode: themeMode}) => {
       <AppBar position='fixed'>
         <Container maxWidth='xl'>
           <Toolbar disableGutters>
-            {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <Link style={{ textDecoration: 'none', color: 'white' }} to={'/'}>
+            <Link style={{ textDecoration: 'none', color: 'white' }} to={(!isLoggedIn ? '/' : "/tickets")}>
               <Box
                 sx={{
                   mr: 2,

@@ -4,7 +4,7 @@ import Nav from './components/Nav/Nav';
 import Home from './components/LandingPage/Home';
 import SignUpForm from './components/User/SignUpForm';
 import LoginForm from './components/User/LoginForm';
-import UserHome from './components/Tickets/UserHome';
+import TicketList from './components/Tickets/TicketList';
 import TicketCreation from "./components/Tickets/TicketCreation";
 import SingleTicket from "./components/Tickets/SingleTicket";
 import { AuthContextProvider } from './context/auth-context';
@@ -18,6 +18,7 @@ import AccountInfo from './components/User/AccountInfo';
 import AllUsers from './components/Users/AllUsers';
 
 export default function App() {
+  document.title = "Help Desk Wizard"
   let savedTheme;
   if (localStorage.getItem('theme')) {
     savedTheme = localStorage.getItem('theme');
@@ -85,9 +86,9 @@ export default function App() {
             <Route path='/' element={<Home theme={theme} />}></Route>
             <Route path='/signup' element={<SignUpForm />}></Route>
             <Route path='/login' element={<LoginForm />}></Route>
-            <Route path='/user_home' element={<UserHome />}></Route>
-                <Route path='/single_ticket' element={<SingleTicket />}></Route>
-                <Route path='/ticket_creation' element={<TicketCreation />}></Route>
+            <Route path='/tickets' element={<TicketList />}></Route>
+            <Route path='/ticket/:id' element={<SingleTicket />}></Route>
+            <Route path='/ticket_creation' element={<TicketCreation />}></Route>
             <Route path='/logout' element={<Logout theme={theme} />}></Route>
             <Route path='/group' element={<AllGroups theme={theme} />}></Route>
             <Route path='/role' element={<Role theme={theme} />}></Route>
