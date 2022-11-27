@@ -34,11 +34,7 @@ const AccountInfo = () => {
   const authCtx = useContext(AuthContext);
   const { userData, isLoggedIn, onUserDataUpdate } = authCtx;
 
-  // a number that should change the amount of editable fields
-  // based on role
-  // for example 4 can edit their name and email
-  // 2 can edit name, email, group, and role
-  const permissions = 4;
+  const permissions = 2;
 
   const dataToShow = (data) => { 
     return {
@@ -226,7 +222,7 @@ const AccountInfo = () => {
           </form>
         </Grid>
       )}
-      {/*<Grid item xs={12} md={6}>
+      {/* <Grid item xs={12} md={6}>
         <Typography mb={2} variant='h5' align='center'>
           Statistics
         </Typography>
@@ -249,7 +245,7 @@ const AccountInfo = () => {
             </TableBody>
           </Table>
         </TableContainer>
-            </Grid>*/}
+            </Grid> */}
     </Grid>
     <Snackbar open={showSnackbar} autoHideDuration={5000} onClose={handleCloseSnackbar} message='Update successful' action={action} />
     </>
